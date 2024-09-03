@@ -1,0 +1,132 @@
+.button {
+    padding: 8px 12px;
+    font-size: 14px;
+    letter-spacing: 2.5px;
+    font-weight: 600;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .button:hover {
+    background-color: #fbf2f0;
+    box-shadow: 0px 15px 20px rgba(235, 235, 235, 0.4);
+    color: #000000;
+    transform: translateY(-7px);
+  }
+  
+  .button:active {
+    transform: translateY(-1px);
+  }
+  .carousel{
+    border-radius: 20px !important;
+    width: 100%;
+    height: 390px !important;
+    }
+
+    .carousel .carouselInside{
+      background: transparent;
+      background: -moz-linear-gradient(0deg, rgba(0,0,0,0.9024859943977591) 17%, rgba(255,255,255,0) 100%);
+      background: -webkit-linear-gradient(0deg, rgba(0,0,0,0.9024859943977591) 17%, rgba(255,255,255,0) 100%);
+      background: linear-gradient(0deg, rgba(0,0,0,0.9024859943977591) 17%, rgba(255,255,255,0) 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#ffffff",GradientType=1);
+      height: 100%;
+      width: 100%;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 20px;
+
+      & h2{
+        font-size: 25px;
+      }
+      & p{
+        font-size: 18px;
+      }
+    }
+
+    /* Loader */
+.loaderContainer{
+position: relative;
+width: 100%;
+height: 80vh;
+display: flex;
+justify-content: center;
+align-items: center;
+}    
+.loader {
+  display: block;
+  --height-of-loader: 4px;
+  --loader-color: #ffffff;
+  width: 230px;
+  height: var(--height-of-loader);
+  border-radius: 30px;
+  background-color: rgba(0,0,0,0.2);
+  position: absolute;
+}
+
+.loader::before {
+  content: "";
+  position: absolute;
+  background: var(--loader-color);
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  border-radius: 30px;
+  animation: moving 1s ease-in-out infinite;
+  ;
+}
+
+@keyframes moving {
+  50% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0;
+    right: 0;
+    left: unset;
+  }
+}
+
+
+
+
+
+
+
+
+.input-div {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+}
+
+.input-div .icon {
+  color: rgb(1, 235, 252);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.input-div .input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer !important;
+}
+.breadcrumbLink{
+  text-decoration: none;
+}
+.breadcrumbLink:hover{
+  text-decoration: underline;
+}
