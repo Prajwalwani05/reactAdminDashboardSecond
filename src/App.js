@@ -28,6 +28,12 @@ import Mail from './scenes/mail';
 import LogIn from './scenes/logIn';
 import LandingPage from './scenes/home';
 import Hotels from './scenes/hotels';
+import SubstationData from './scenes/substationData';
+import Ecommerce from './scenes/ecommerece';
+import Teams from './scenes/team';
+import Users from './scenes/users';
+import Products from './scenes/products';
+import Orders from './scenes/orders';
 
 const App = () => {
   const [theme, colorMode] = useMode();
@@ -47,14 +53,19 @@ const App = () => {
               <Route path="/home" element={<LandingPage />} />
               <Route path="/" element={<ResponsiveDrawer />}>
               <Route path="/" element={<Dashboard />} />
-            {/* <Route path="/ecommerce" element={<Ecommerce />} /> */}
+              <Route path="/Ecommerce" element={<Ecommerce />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/banking" element={<Banking />} />
+              <Route path="/teams" element={<Teams />} />
               <Route path="/arr" element={<FullFeaturedCrudGrid />} />
               <Route path="/ad" element={<AssestsDepreciation />} />
               <Route path="/inputUpload" element={<InputUpload />} />
               <Route path="/mail" element={<Mail />} />
               <Route path="/hotels" element={<Hotels />} />
+              <Route path="/districtWiseSummary" element={<SubstationData />} />
+              <Route path="/users" element={<Users />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/orders" element={<Orders />} />
                 {/* Other nested routes */}
               </Route>
             </Routes>

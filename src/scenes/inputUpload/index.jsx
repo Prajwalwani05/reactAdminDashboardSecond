@@ -9,6 +9,7 @@ import PdfViewer from './pdfViewer';
 import axios from 'axios';
 import ApexChart from './chart';
 import CustomSeparator from '../../components/Header';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 
 
 const InputUpload = () => {
@@ -119,7 +120,7 @@ const InputUpload = () => {
 
   return (
     <Box m="10px">
-      <CustomSeparator pageName={"Input Data Upload"} />
+      <CustomSeparator pageName={"Input Data Upload"} IconComponent={CloudUploadOutlinedIcon}/>
       <Box sx={{ display: "flex",justifyContent:"space-evenly", alignItems: "center",width:"100%", gap: "20px", borderRadius: "20px", backgroundColor: colors.primary["card"] }} p={2}>
         <Box>
           <label

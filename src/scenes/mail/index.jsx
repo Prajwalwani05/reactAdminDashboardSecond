@@ -6,6 +6,7 @@ import { tokens } from '../../theme'
 import SelectedListItem from './sideList'
 import Mailbox from './mails'
 import CustomSeparator from '../../components/Header'
+import MailIcon from '@mui/icons-material/Mail';
 
 const Mail = () => {
     const theme = useTheme();
@@ -14,7 +15,7 @@ const Mail = () => {
     console.log(mailerMail)
   return (
     <Box m="10px">
-      <CustomSeparator pageName={"Mail"} />
+      <CustomSeparator pageName={"Mail"} IconComponent={MailIcon}/>
         <Box sx={{ flexGrow: 1 }} p={1}>
         <Grid container spacing={2} sx={{display:"flex", gap:"0px", backgroundColor:colors.primary["accent"], padding:"10px", borderRadius:"20px", width:"100%"}}>
             <SelectedListItem setMailerMail={setMailerMail}/>

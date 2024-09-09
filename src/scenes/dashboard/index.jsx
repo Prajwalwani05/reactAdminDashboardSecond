@@ -48,8 +48,8 @@ const Dashboard = () => {
     <Box  m="10px" p="10px">
       {/* <Header title={'Dashboard'} subtitle={"Come let's explore"}/> */}
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={8 }>
+        <Grid container spacing={1.5}>
+          <Grid item xs={8}>
           <Item className="firstGrid" style={{
             height:'100%',
             background: `${

@@ -29,10 +29,16 @@ body,
 
 ::-webkit-scrollbar-thumb{
   background: #b6b5b55e;
-  /* border-radius: 20px !important; */
+}
+::selection{
+  background-color: rgb(168, 205, 238);
+  color: black;
 }
 svg{
   font-size: 20px !important;
+}
+.menuIcons{
+  font-size: 25px !important;
 }
 .cloudIcon{
   font-size: 70px !important;

@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
+import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
 import {
   GridRowModes,
   DataGrid,
@@ -250,7 +251,7 @@ export default function FullFeaturedCrudGrid() {
         },
       }}
     >
-     <CustomSeparator pageName={"ARR"} />
+     <CustomSeparator pageName={"ARR"} IconComponent={SummarizeOutlinedIcon}/>
       <Snackbar
         anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         open={alertOpen}

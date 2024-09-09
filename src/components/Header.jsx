@@ -25,18 +25,23 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { Link } from 'react-router-dom';
-import { useTheme } from '@mui/material';
+import {useTheme } from '@mui/material';
 import { tokens } from '../theme';
+import SpeedIcon from '@mui/icons-material/Speed';
 
 
-export default function CustomSeparator({pageName}) {
+export default function CustomSeparator({pageName, IconComponent}) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const breadcrumbs = [
-    <Link style={{color:colors.grey[600]}} className='breadcrumbLink'  key="1" to="/">
+    <Link style={{color:colors.grey[600], display:'flex', alignItems:'center', gap:'8px'}} className='breadcrumbLink'  key="1" to="/">
+      <SpeedIcon />
+      <p>
       Dashboard
+      </p>
     </Link>,
-    <Typography key="3" color="text.primary">
+    <Typography style={{ display:'flex', alignItems:'center', gap:'8px'}} key="3" color="text.primary">
+      {IconComponent && <IconComponent />}
       {pageName}
     </Typography>,
   ];

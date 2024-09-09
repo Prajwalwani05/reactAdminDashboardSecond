@@ -24,6 +24,7 @@ import DonutChart from '../../components/smallDonutChart';
 import dayjs from 'dayjs';
 import { Url } from 'devextreme-react/cjs/chart';
 import MediaCard from './hotelCard';
+import { HotelRounded } from "@mui/icons-material";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -85,7 +86,7 @@ export default function BasicGrid() {
         :
 
     <Box m="10px" sx={{ flexGrow: 1 }}>
-      <CustomSeparator pageName={"Hotels"} />
+      <CustomSeparator pageName={"Hotels"} IconComponent={HotelRounded}/>
       <Grid sx={{display:"flex" , gap:"10px", alignItems:'center'}}>
       <Box p={1} sx={{width: "30%" , border:`1px solid ${colors.grey[800]}`, borderRadius:"7px", display:"flex", justifyContent:"center", gap:"10px", alignItems:'center'}}>
         <Search />

@@ -6,9 +6,10 @@ import {mockDataTeam} from "../../data/mockData";
 import AdminPanelSettingsOutLinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutLinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutLinedIcon from "@mui/icons-material/SecurityOutlined";
-import Header from '../../components/Header';
+import CustomSeparator from '../../components/Header';
+import GroupsIcon from '@mui/icons-material/Groups';
 
-const Team = () => {
+const Teams = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -37,7 +38,7 @@ const Team = () => {
   ]
   return (
     <Box m="10px 20px">
-      <Header title="Team" subtitle="Managing the Team Members"/>
+      <CustomSeparator pageName={"Teams"} IconComponent={GroupsIcon} />
       <Box m="40px 0 0 0" height="75vh">
        <DataGrid 
         rows={mockDataTeam}
@@ -48,4 +49,4 @@ const Team = () => {
   )
 }
 
-export default Team
+export default Teams

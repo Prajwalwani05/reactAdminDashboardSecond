@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import CustomSeparator from '../../components/Header';
 import { Box } from '@mui/material';
+import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 const Analytics = () => {
   const [traders, setTraders] = useState([]);
@@ -22,7 +23,7 @@ const Analytics = () => {
 
   return (
     <Box m="10px">
-      <CustomSeparator pageName={"Analytics"} />
+      <CustomSeparator pageName={"Analytics"} IconComponent={AnalyticsIcon} />
       <h1>User List</h1>
       <table>
         <thead>

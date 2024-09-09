@@ -36,11 +36,19 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
 import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import { HotelRounded } from "@mui/icons-material";
+import { ChevronLeft, ChevronRight, HotelRounded } from "@mui/icons-material";
+import greenLogo from './assets/icons8-p-100.png';
+import blueLogo from './assets/icons8-p-100 (1).png';
+import redLogo from './assets/icons8-p-100 (2).png';
+import yellowLogo from './assets/icons8-p-100 (3).png';
+import GroupsIcon from '@mui/icons-material/Groups';
+import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
+import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
+import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
 
-
-const initialDrawerWidth = 300;
-const collapsedDrawerWidth = 0;
+const initialDrawerWidth = 295;
+const collapsedDrawerWidth = 65;
 const StyledDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
     transition: theme.transitions.create(["width"], {
@@ -108,17 +116,15 @@ function ResponsiveDrawer(props) {
     '& .MuiListItemIcon-root': {
       color: isActive ? colors.redAccent["hover"] : 'inherit',
     },
-    // flexDirection: "column",
-    // alignItems: "center",
-    // justifyContent: "center",
   }));
 
   const drawer = (
-    <div className="sidebar"
+    <div className=""
       style={{
         backgroundColor: `${colors.primary["bg"]}`,
-        height: "auto",
-        maxHeight: "auto",
+        height: "100vh", // Full viewport height
+        overflow: "hidden", // Hide overflow outside the sidebar
+    
       }}
     >
       <Toolbar
@@ -127,144 +133,199 @@ function ResponsiveDrawer(props) {
           justifyContent: "flex-start",
           alignItems: "center",
         }}
+        style={{paddingLeft:'10px'}}
       >
-        <p style={{ color: colors[`${colorScheme}Accent`]?.[200] , fontFamily: `"Dancing Script", "cursive"`, fontSize:"30px", margin:"0",marginTop:"5px", fontWeight:"700" }}>
-          P
-        </p>
+        <img src={colorScheme === 'green' ? greenLogo : colorScheme === 'red' ? redLogo : colorScheme === 'yellow' ? yellowLogo : blueLogo} width={!collapsedDrawerWidth ? "50px" : "35px" }  alt="logo"/>
       </Toolbar>
 
         {/* <Divider /> */}
-      <h4 style={{paddingLeft:"15px",  margin:"10px 5px 0px 5px"}}>Overview</h4>
+        <div className="sidebarScoller" style={{overflowX:'hidden', maxHeight: 'calc(100vh - 64px)' }}>
+      {!isCollapsed && <h4 style={{paddingLeft:"15px",  margin:"10px 5px 0px 5px"}}>Overview</h4>}
       <List>
-        <ListItem key="Dashboard" disablePadding style={{padding:"0 5px"}}>
+        <ListItem  key="Dashboard" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
         to="/"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon >
           <SpeedIcon />
         </ListItemIcon>
-        <ListItemText primary="Dashboard" />
+        {!isCollapsed && <ListItemText primary="Dashboard" />}
       </StyledListItemButton>
         </ListItem>
-        <ListItem key="E-commerce" disablePadding style={{padding:"0 5px"}}>
+
+        <ListItem key="DistrictWise Summary" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
-        to="/ecommerce"
+        to="/districtWiseSummary"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
+      })}
+      >
+        <ListItemIcon >
+          <SummarizeOutlinedIcon />
+        </ListItemIcon>
+        {!isCollapsed && <ListItemText primary="DistrictWise Summary" />}
+      </StyledListItemButton>
+        </ListItem>
+
+
+        <ListItem key="E-commerce" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
+        <StyledListItemButton
+        component={NavLink}
+        to="/ecommerce"
+        end
+        className="listMenu"
+        style={({ isActive }) => ({
+          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
+          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
+          borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <ShoppingCartIcon  />
         </ListItemIcon>
-        <ListItemText primary="E-commerce" />
+        {!isCollapsed && <ListItemText primary="E-commerce" />}
       </StyledListItemButton>
         </ListItem>
-        <ListItem key="Analytics" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="Analytics" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
         to="/analytics"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <AnalyticsIcon  style={{ color: 'inherit' }} />
         </ListItemIcon>
-        <ListItemText primary="Analytics" />
+        {!isCollapsed && <ListItemText primary="Analytics" />}
       </StyledListItemButton>
         </ListItem>
-        <ListItem key="Banking" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="Banking" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
         to="/banking"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <AccountBalanceIcon  style={{ color: 'inherit' }} />
         </ListItemIcon>
-        <ListItemText primary="Banking" />
+        {!isCollapsed && <ListItemText primary="Banking" />}
       </StyledListItemButton>
         </ListItem>
 
-        <ListItem key="Hotels" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="Hotels" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
         to="/hotels"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <HotelRounded  style={{ color: 'inherit' }} />
         </ListItemIcon>
-        <ListItemText primary="Hotels" />
+        {!isCollapsed && <ListItemText primary="Hotels" />}
       </StyledListItemButton>
         </ListItem>
-      </List>
 
-      <h4 style={{paddingLeft:"15px" , margin:"10px 5px 0px 5px"}}>Forms</h4>
-      <List>
-        <ListItem key="ARR" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="Hotels" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
-        to="/arr"
+        to="/teams"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+      })}
+      >
+        <ListItemIcon>
+          <GroupsIcon  style={{ color: 'inherit' }} />
+        </ListItemIcon>
+        {!isCollapsed && <ListItemText primary="Teams" />}
+      </StyledListItemButton>
+        </ListItem>
+      </List>
+      {!isCollapsed && <h4 style={{paddingLeft:"15px" , margin:"10px 5px 0px 5px"}}>Forms</h4>}
+      <List>
+        <ListItem key="ARR" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
+        <StyledListItemButton
+        component={NavLink}
+        to="/arr"
+        end
+        className="listMenu"
+        style={({ isActive }) => ({
+          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
+          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
+          borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <SummarizeOutlinedIcon />
         </ListItemIcon>
-        <ListItemText primary="Aggregate Revenue Requirement" />
+       {!isCollapsed && <ListItemText  primary="Aggregate Revenue Requirement" />}  
       </StyledListItemButton>
         </ListItem>
-        <ListItem key="AD" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="AD" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
         to="/ad"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <FeedOutlinedIcon  />
         </ListItemIcon>
-        <ListItemText primary="Assets & Depreciation" />
+        {!isCollapsed && <ListItemText primary="Assets & Depreciation" />}
       </StyledListItemButton>
         </ListItem>
-        <ListItem key="inputUpload" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="inputUpload" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
         to="/inputUpload"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
@@ -274,83 +335,92 @@ function ResponsiveDrawer(props) {
         <ListItemIcon>
           <CloudUploadOutlinedIcon  style={{ color: 'inherit' }} />
         </ListItemIcon>
-        <ListItemText primary="Input data upload" />
+        {!isCollapsed && <ListItemText primary="Input data upload" />}
       </StyledListItemButton>
         </ListItem>
        
       </List>
 
-      <h4 style={{paddingLeft:"15px", margin:"10px 5px 0px 5px"}}>Management</h4>
+      {!isCollapsed && <h4 style={{paddingLeft:"15px", margin:"10px 5px 0px 5px"}}>Management</h4>}
       <List>
-        <ListItem key="User" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="User" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
-        to="/user"
+        to="/users"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <AccountCircleIcon  style={{ color: 'inherit' }} />
         </ListItemIcon>
-        <ListItemText primary="User" />
+        {!isCollapsed && <ListItemText primary="User" />}
        </StyledListItemButton>
         </ListItem>
-        <ListItem key="Product" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="Product" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
-        to="/product"
+        to="/products"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <DryCleaningIcon style={{ color: 'inherit' }} />
         </ListItemIcon>
-        <ListItemText primary="Product" />
+        {!isCollapsed && <ListItemText primary="Product" />}
        </StyledListItemButton>
         </ListItem>
-        <ListItem key="Order" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="Order" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
-        to="/order"
+        to="/orders"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <ShoppingBagIcon  style={{ color: 'inherit' }} />
         </ListItemIcon>
-        <ListItemText primary="Order" />
+        {!isCollapsed && <ListItemText primary="Order" />}
       </StyledListItemButton>
         </ListItem>
-        <ListItem key="Mail" disablePadding style={{padding:"0 5px"}}>
+        <ListItem key="Mail" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
         to="/mail"
         end
+        className="listMenu"
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
           borderRadius:"10px",
+          marginBottom:'3px'
       })}
       >
         <ListItemIcon>
           <MailIcon  style={{ color: 'inherit' }} />
         </ListItemIcon>
-        <ListItemText primary="Mail" />
+        {!isCollapsed && <ListItemText primary="Mail" />}
       </StyledListItemButton>
         </ListItem>
       </List>
+        </div>
       <Divider />  
     </div>
   );
@@ -367,7 +437,7 @@ function ResponsiveDrawer(props) {
         sx={{
           backgroundImage: "none",
           boxShadow: "none",
-          borderBottom: `1px solid ${colors.grey[900]}`,
+          borderBottom: `1px solid ${colors.primary['accent']}`,
           backgroundColor: `${
             theme.palette.mode === "dark"
               ? "#141a2172"
@@ -376,6 +446,7 @@ function ResponsiveDrawer(props) {
           backdropFilter: "blur(5px)",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          zIndex:'1200'
         }}
       >
         {/* <Toolbar>
@@ -392,12 +463,12 @@ function ResponsiveDrawer(props) {
             padding: "10px",
           }}
         >
-          <Box display="flex" alignItems="center" borderRadius="3px">
+          <Box display="flex" alignItems="center" sx={{position:'relative'}} borderRadius="3px">
             <IconButton
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" } }}
+              sx={{ mr: 2, display: { sm: "none" }}}
             >
               <MenuIcon />
             </IconButton>
@@ -405,9 +476,13 @@ function ResponsiveDrawer(props) {
               aria-label="open drawer"
               edge="start"
               onClick={handleMenuClosing}
-              sx={{ mr: 2, display: { xs: "none", sm: "flex" } }}
-            >
-              <MenuIcon />
+              sx={{ mr: 2,  display: { xs: "none", sm: "flex" },"&:hover": { backgroundColor: 'transparent' }, position:'absolute', left:'-30px', zIndex:1300}}
+              >
+              {/* <MenuIcon /> */}
+              {/* KeyboardArrowRightRoundedIcon */}
+              {/* import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'; */}
+              
+              {!isCollapsed  ? <ChevronLeft className="menuIcons" style={{border:`1px solid ${colors.primary['accent']}`, backgroundColor:colors.primary['bg'],  borderRadius:'50%'}}/> :  <ChevronRight className="menuIcons" style={{border:`1px solid ${colors.primary['accent']}`,backgroundColor:colors.primary['bg'],  borderRadius:'50%'}}/>} 
             </IconButton>
             <IconButton type="button" sx={{ p: 1 }}>
               <SearchIcon />
@@ -497,7 +572,7 @@ function ResponsiveDrawer(props) {
                 <NotificationsOutlinedIcon />
               </Tooltip>
             </IconButton>
-            <div style={{display:"flex", alignItems:"center"}}>
+            <Box style={{display:"flex", alignItems:"center"}}>
               {["right"].map((anchor) => (
                 <React.Fragment key={anchor}>
                   <Tooltip title="Settings" placement="top-end">
@@ -515,7 +590,7 @@ function ResponsiveDrawer(props) {
                   />
                 </React.Fragment>
               ))}
-            </div>
+            </Box>
             <IconButton>
               <Tooltip title="Profile" placement="top-end">
                 {/* <PersonOutlinedIcon /> */}
@@ -540,7 +615,8 @@ function ResponsiveDrawer(props) {
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { sm: drawerWidth },            zIndex:'1000',
+        flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
@@ -555,6 +631,7 @@ function ResponsiveDrawer(props) {
           }}
           
           sx={{
+            
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",

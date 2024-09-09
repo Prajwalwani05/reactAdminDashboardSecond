@@ -24,12 +24,24 @@
               transform: rotate(360deg);
     }
   }
-  .sidebar {
+  .sidebarScoller {
     overflow-y: hidden;
     transition: overflow-y 0.3s ease-in-out;
 }
 
 /* Show scrollbar on hover */
-.sidebar:hover {
+.sidebarScoller:hover {
     overflow-y: auto;
+}
+.sidebarScoller::-webkit-scrollbar-thumb{
+  border-radius: 20px;
+  /* background-color: #2e3944; */
+}
+
+.menuIcons:hover{
+  /* background-color: #2e3944 !important; */
+  font-size:25px !important;
+}
+.listMenu:hover{
+  background-color: #1d242baa !important;
 }
