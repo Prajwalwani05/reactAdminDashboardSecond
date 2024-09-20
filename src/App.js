@@ -1,6 +1,6 @@
 import React from 'react'
 import ResponsiveDrawer from './scenes/global/layout';
-import { colorModeContext, tokens, useMode } from "./theme";
+import { colorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { FontProvider } from './contexts/FontContext';
 import '../node_modules/@syncfusion/ej2-base/styles/material.css';
@@ -34,19 +34,19 @@ import Teams from './scenes/team';
 import Users from './scenes/users';
 import Products from './scenes/products';
 import Orders from './scenes/orders';
+import List from './scenes/hotels/List';
+import Details from './scenes/hotels/Details';
+import Create from './scenes/hotels/Create';
+import DistrictDetails from './scenes/substationData/districtDetails';
 
 const App = () => {
   const [theme, colorMode] = useMode();
-  const colors = tokens(theme.palette.mode);
-  // const [isSidebar, setIsSidebar] = useState(true);
   return (
     <colorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <FontProvider>
         <div className="app" >
-           {/* <ResponsiveDrawer /> */}
-           {/* <Router> */}
             <Routes>
               <Route path="/login" element={<LogIn />} />
               <Route path="/register" element={<Register />} />
@@ -62,14 +62,18 @@ const App = () => {
               <Route path="/inputUpload" element={<InputUpload />} />
               <Route path="/mail" element={<Mail />} />
               <Route path="/hotels" element={<Hotels />} />
+              <Route path="/hotels/list" element={<List />} />
+              <Route path="/hotels/details" element={<Details />} />
+              <Route path="/hotels/create" element={< Create />} />
+
               <Route path="/districtWiseSummary" element={<SubstationData />} />
+              <Route path="/districtWiseSummary/districtDetails/:id" element={<DistrictDetails />} />
+
               <Route path="/users" element={<Users />} />
               <Route path="/products" element={<Products />} />
               <Route path="/orders" element={<Orders />} />
-                {/* Other nested routes */}
               </Route>
             </Routes>
-        {/* </Router> */}
         </div>
         </FontProvider>
       </ThemeProvider>

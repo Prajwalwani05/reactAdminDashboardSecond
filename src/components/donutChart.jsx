@@ -60,13 +60,13 @@ const DonutChart = () => {
       }]
       };
   return (
-    <Card sx={{ minWidth: 150 , padding:"0", borderRadius:"20px", backgroundColor:`${colors.primary["bg"]}`}}>
-    <CardContent sx={{display:"flex", justifyContent:"space-around", alignItems:"center"}}>
+    <Card sx={{ minWidth: 150 , padding:"0", borderRadius:"20px", backgroundImage:'none', backgroundColor:`${colors.primary["specialCards"]}`}}>
+    <CardContent sx={{display:"flex", justifyContent:"space-around", alignItems:"center", paddingBottom:'16px !important'}}>
       <Box display="flex" flexDirection="column" gap="5px">
         <h2>Current download</h2>
-    <div id="chart" >
-      <ApexCharts options={options} series={options.series} type="donut" height="300px" width="300px"/>
-    </div>
+        <div id="chart" >
+          <ApexCharts options={options} series={options.series} type="donut" height="300px" width="300px"/>
+        </div>
     </Box>
     </CardContent>
     </Card>

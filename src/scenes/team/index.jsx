@@ -2,7 +2,7 @@ import React from 'react'
 import {Box, Typography, useTheme} from "@mui/material";
 import { DataGrid } from '@mui/x-data-grid';
 import {tokens} from "../../theme";
-import {mockDataTeam} from "../../data/mockData";
+// import {mockDataTeam} from "../../data/mockData";
 import AdminPanelSettingsOutLinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutLinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutLinedIcon from "@mui/icons-material/SecurityOutlined";
@@ -39,12 +39,12 @@ const Teams = () => {
   return (
     <Box m="10px 20px">
       <CustomSeparator pageName={"Teams"} IconComponent={GroupsIcon} />
-      <Box m="40px 0 0 0" height="75vh">
+      {/* <Box m="40px 0 0 0" height="75vh">
        <DataGrid 
         rows={mockDataTeam}
         columns={columns}
        />  
-      </Box> 
+      </Box>  */}
     </Box>
   )
 }

@@ -1,12 +1,11 @@
 import * as React from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import { colorModeContext, tokens } from '../../theme';
+import { tokens } from '../../theme';
 import { useTheme } from '@mui/material';
 import avatar1 from './assets/3d-rendering-zoom-call-avatar.jpg';
 import avatar2 from './assets/medium-shot-little-girl-indoors.jpg';
@@ -14,7 +13,6 @@ import avatar3 from './assets/3d-cartoon-style-character.jpg';
 
 export default function AlignItemsList({ setMailerMail }) {
   const [active, setActive] = React.useState(1);
-  const { colorScheme } = React.useContext(colorModeContext);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 

@@ -1,24 +1,3 @@
-// import React from 'react'
-// import { Typography, Box,  useTheme} from '@mui/material'
-// import { tokens } from '../theme';
-// const Header = ({title, subtitle}) => {
-//     const theme = useTheme();
-//     const colors = tokens(theme.palette.mode);
-
-//   return (
-//     <Box mb='20px'>
-//         <Typography variant='h3' color={colors.grey[100]} fontWeight="bold" sx={{mb:"5px"}}>
-//             {title}
-//         </Typography>
-//         <Typography variant='h5' color={colors.grey[500]} >
-//             {subtitle}
-//         </Typography>
-//     </Box>
-//   )
-// }
-
-// export default Header
-
 import * as React from 'react';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Typography from '@mui/material/Typography';
@@ -29,8 +8,11 @@ import {useTheme } from '@mui/material';
 import { tokens } from '../theme';
 import SpeedIcon from '@mui/icons-material/Speed';
 
-
-export default function CustomSeparator({pageName, IconComponent}) {
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
+export default function CustomSeparator({pageName, IconComponent, parentName, IconComponent2}) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const breadcrumbs = [
@@ -40,6 +22,17 @@ export default function CustomSeparator({pageName, IconComponent}) {
       Dashboard
       </p>
     </Link>,
+    parentName && (
+    <Typography
+     underline="hover"
+     key="2"
+     color="inherit"
+     onClick={handleClick}
+     style={{ display:'flex', alignItems:'center', gap:'8px'}}
+   >
+    {IconComponent2 && <IconComponent2 />}
+     {parentName}
+   </Typography>),
     <Typography style={{ display:'flex', alignItems:'center', gap:'8px'}} key="3" color="text.primary">
       {IconComponent && <IconComponent />}
       {pageName}

@@ -1,7 +1,6 @@
 
 import { createContext, useState, useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
-import { palette } from "@mui/icons-material";
 
 export const tokens = (mode) =>({
     
@@ -25,6 +24,7 @@ export const tokens = (mode) =>({
             "card":"#1c252e",
             "accent":"#28323D",
             "hover":"#1D242B",
+            "specialCards":"#1c252e"
         },
         greenAccent: {
             100: "#c8fad5",
@@ -38,9 +38,9 @@ export const tokens = (mode) =>({
         redAccent: {
             100: "#ffe3d5",
             200: "#fe3030",
-            300: "#b71834",
+            300: "#6a040f",
             400: "#79092f",
-            500: "#ef233c",
+            500: "#ff5a5f",
             "light":"#402D2F",
             "hover": "#64122086"
         },
@@ -87,6 +87,7 @@ export const tokens = (mode) =>({
             "card": "#f5f6f8",
             "accent": "#F4F6F8",
             "hover": "#ECEFF2",
+            'specialCards': 'faf9f9'
         },
         greenAccent: {
             500: "#9ef01a",
@@ -193,13 +194,13 @@ export const colorModeContext = createContext({
     toggleColorMode: () => {},
     changeFont: () => {},
     changeColorScheme: () => {},
-    colorScheme:"blue"
+    colorScheme:"green"
   });
   
   export const useMode = () => {
     const [mode, setMode] = useState("dark");
     const [fontFamily, setFontFamily] = useState("'Source Sans Pro', sans-serif");
-    const [colorScheme, setColorScheme] = useState('blue'); // Default color scheme
+    const [colorScheme, setColorScheme] = useState('green'); // Default color scheme
   
     const colorMode = useMemo(
       () => ({

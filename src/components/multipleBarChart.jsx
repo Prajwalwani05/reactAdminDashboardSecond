@@ -123,10 +123,10 @@ const MultipleBarChart = () => {
   };
 
   return (
-    <Card sx={{ padding: "0", borderRadius: "20px", backgroundColor: `${colors.primary["bg"]}` }}>
-      <CardContent sx={{ width: "100%", display: "flex", justifyContent: "space-around", alignItems: "center" }}>
+    <Card sx={{ padding: "0", borderRadius: "20px",backgroundImage:'none', backgroundColor: `${colors.primary["specialCards"]}` }}>
+      <CardContent sx={{ width: "100%", display: "flex", justifyContent: "space-around", alignItems: "center", paddingBottom:'16px !important' }}>
         <Box width="100%" display="flex" flexDirection="column" gap="5px">
-          <h2>Area installed</h2>
+          <h2 style={{margin:'0'}}>Installed</h2>
           <div style={{display:"flex", alignItems:"center", gap:"15px"}}>
             <div style={{display:"flex", alignItems:"center", gap:"5px"}}>
             <div style={{backgroundColor: colors[`${colorScheme}Accent`]?.[500], width:"12px", height:"12px", borderRadius:"50%"}}></div>

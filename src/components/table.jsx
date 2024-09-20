@@ -8,9 +8,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { tokens } from '../theme';
-import { Box, Card, CardContent, colors } from '@mui/material';
+import { Box, Card, CardContent } from '@mui/material';
 
-// Define the StyledTableCell and StyledTableRow components with theme-based styling
 const StyledTableCell = styled(TableCell)(({ theme }) => {
   const colors = tokens(theme.palette.mode);
   return {
@@ -69,7 +68,7 @@ export default function CustomizedTables() {
       ];
       
   return (
-    <Card sx={{ padding: "0", borderRadius: "20px", backgroundColor: `${colors.primary["bg"]}` }}>
+    <Card sx={{ padding: "0", borderRadius: "20px",backgroundImage:'none', backgroundColor: `${colors.primary["specialCards"]}` }}>
       <CardContent className='cardContent' sx={{ width: "100%", display: "flex", justifyContent: "space-around", alignItems: "center", padding:"8px !important" }}>
         <Box width="100%" display="flex" flexDirection="column" gap="0px" padding="0">
           <h2 style={{marginLeft:"20px"}}>New Invoice</h2>

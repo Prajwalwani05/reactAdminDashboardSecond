@@ -37,8 +37,8 @@ const FontChanger = () => {
               backgroundColor: currentFontFamily === font ? colors.primary["light"] : 'transparent',
             }}
           >
-            <GoTypography style={{color:currentFontFamily === font ? colors[`${colorMode.colorScheme}Accent`]?.[200] : colors.grey[900], marginBottom:"5px"}}/>
-            <Typography variant="body1" style={{ fontFamily: font, color:currentFontFamily === font ? colors.grey[100] : colors.grey[900]}}>
+            <GoTypography style={{color:currentFontFamily === font ? colors[`${colorMode.colorScheme}Accent`]?.[200] : colors.grey[700], marginBottom:"5px"}}/>
+            <Typography variant="body1" style={{ fontFamily: font, color:currentFontFamily === font ? colors.grey[100] : colors.grey[700]}}>
               {fontName}
             </Typography>
           </Grid>

@@ -1,35 +1,3 @@
-// import * as React from 'react';
-// import Box from '@mui/material/Box';
-// import Tabs from '@mui/material/Tabs';
-// import Tab from '@mui/material/Tab';
-// import { Card, CardContent, useTheme } from '@mui/material';
-// import { tokens } from '../theme';
-
-// export default function CenteredTabs() {
-//   const [value, setValue] = React.useState(0);
-//   const theme = useTheme();
-//   const colors = tokens(theme.palette.mode);
-//   const handleChange = (event, newValue) => {
-//     setValue(newValue);
-//   };
-
-//   return (
-//     <Card sx={{ padding: "0", borderRadius: "20px", backgroundColor: `${colors.primary["bg"]}` }}>
-//     <CardContent className='cardContent' sx={{ width: "100%", display: "flex", justifyContent: "space-around", alignItems: "center", padding:"8px !important" }}>
-//       <Box width="100%" display="flex" flexDirection="column" gap="0px" padding="0">
-//       <h2 Related style={{marginLeft:"12px"}}>Related applications</h2>
-//     <Box sx={{ width: '100%', bgcolor: `${colors.primary['bg']}`, borderRadius:"12px" }}>
-//       <Tabs value={value} onChange={handleChange} centered>
-//         <Tab label="Item One" />
-//         <Tab label="Item Two" />
-//         <Tab label="Item Three" />
-//       </Tabs>
-//     </Box>
-//     </Box>
-//     </CardContent>
-//     </Card>
-//   );
-// }
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
@@ -88,7 +56,7 @@ export default function FullWidthTabs() {
   };
 
   return (
-    <Card sx={{ padding: "0", borderRadius: "20px", backgroundColor: `${colors.primary["bg"]}` }}>
+    <Card sx={{ padding: "0", borderRadius: "20px",backgroundImage:'none', backgroundColor: `${colors.primary["specialCards"]}` }}>
     <CardContent className='cardContent' sx={{ width: "100%", display: "flex", justifyContent: "space-around", alignItems: "center", padding:"8px !important" }}>
     <Box width="100%" display="flex" flexDirection="column" gap="0px" padding="0">
     <h2 Related style={{marginLeft:"12px"}}>Related applications</h2>

@@ -15,7 +15,7 @@ export default function BasicSelect({handleTextCommandSelect}) {
 
   return (
     <Box >
-      <FormControl sx={{  minWidth: 120 }} size="small">
+      <FormControl sx={{ minWidth: 120 }} size="small">
         <InputLabel id="demo-simple-select-label">Font</InputLabel>
         <Select
           labelId="demo-simple-select-label"
@@ -36,31 +36,3 @@ export default function BasicSelect({handleTextCommandSelect}) {
     </Box>
   );
 }
-
-
-// import React, { useState } from 'react';
-
-// const UnstyledSelectControlled = ({ handleTextCommandSelect }) => {
-//   const [value, setValue] = useState('P');
-
-//   const handleChange = (event) => {
-//     const newValue = event.target.value;
-//     setValue(newValue);
-//     handleTextCommandSelect(newValue); // Call the passed function with the new value
-//     console.log(newValue);
-//     console.log(handleTextCommandSelect)
-//   };
-
-//   return (
-//     <div>
-//       <select value={value} onChange={handleChange}>
-//         <option value="P">Paragraph</option>
-//         <option value="H1">Heading 1</option>
-//         <option value="H2">Heading 2</option>
-//         <option value="H3">Heading 3</option>
-//       </select>
-//     </div>
-//   );
-// };
-
-// export default UnstyledSelectControlled;

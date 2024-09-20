@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,39 +16,43 @@ import Toolbar from "@mui/material/Toolbar";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import SettingslinedIcon from "@mui/icons-material/SettingsOutlined";
 import SearchIcon from "@mui/icons-material/Search";
-import { Avatar, InputBase, Tooltip, useTheme } from "@mui/material";
+import { Avatar, Collapse, InputBase, Tooltip, useTheme } from "@mui/material";
 import { colorModeContext, tokens } from "../../theme";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { CiMenuKebab } from "react-icons/ci";
 import "./global.css";
-import profilepic from './assets/3d-fluency-male-user.png'
+import profilepic from "./assets/3d-fluency-male-user.png";
 import AnchorTemporaryDrawer from "./settings";
-import { NavLink, Outlet} from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AnalyticsIcon from "@mui/icons-material/Analytics";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
-import { styled } from '@mui/system';
-import MailIcon from '@mui/icons-material/Mail';
-import DryCleaningIcon from '@mui/icons-material/DryCleaning';
-import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import SpeedIcon from '@mui/icons-material/Speed';
-import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
-import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
-import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import { ChevronLeft, ChevronRight, HotelRounded } from "@mui/icons-material";
-import greenLogo from './assets/icons8-p-100.png';
-import blueLogo from './assets/icons8-p-100 (1).png';
-import redLogo from './assets/icons8-p-100 (2).png';
-import yellowLogo from './assets/icons8-p-100 (3).png';
-import GroupsIcon from '@mui/icons-material/Groups';
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
-import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
-import KeyboardArrowLeftRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
+import { styled } from "@mui/system";
+import MailIcon from "@mui/icons-material/Mail";
+import DryCleaningIcon from "@mui/icons-material/DryCleaning";
+import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
+import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
+import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
+import {
+  AddCircle,
+  ChevronLeft,
+  ChevronRight,
+  ExpandMore,
+  HotelRounded,
+  Info,
+  ListAlt,
+} from "@mui/icons-material";
+import greenLogo from "./assets/icons8-p-100.png";
+import blueLogo from "./assets/icons8-p-100 (1).png";
+import redLogo from "./assets/icons8-p-100 (2).png";
+import yellowLogo from "./assets/icons8-p-100 (3).png";
+import GroupsIcon from "@mui/icons-material/Groups";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import SpeedRoundedIcon from "@mui/icons-material/SpeedRounded";
 
-const initialDrawerWidth = 295;
+const initialDrawerWidth = 285;
 const collapsedDrawerWidth = 65;
 const StyledDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
@@ -66,13 +71,14 @@ function ResponsiveDrawer(props) {
   const colors = tokens(theme.palette.mode);
   const { colorScheme } = React.useContext(colorModeContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [state, setState] = React.useState({right: false,});
+  const [state, setState] = React.useState({ right: false });
   const [isCollapsed, setIsCollapsed] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(null);
 
-  // const colorScheme = theme.colorScheme;
   const drawerWidth = isCollapsed ? collapsedDrawerWidth : initialDrawerWidth;
-
-  
+  const handleMenuClick = (menu) => {
+    setOpenMenu(openMenu === menu ? null : menu);
+  };
   const toggleDrawer = (anchor, open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -106,249 +112,518 @@ function ResponsiveDrawer(props) {
     }
   };
 
-  const handleMenuClosing = () =>{
+  const handleMenuClosing = () => {
     setIsCollapsed(!isCollapsed);
-  }
- 
-  const StyledListItemButton = styled(ListItemButton)(({ colors, isActive }) => ({
-    backgroundColor: isActive ? colors.redAccent[200] : 'transparent',
-    color: isActive ? colors.grey[500] : 'grey',
-    '& .MuiListItemIcon-root': {
-      color: isActive ? colors.redAccent["hover"] : 'inherit',
-    },
-  }));
+  };
+  const navigate = useNavigate();
+
+  const StyledListItemButton = styled(ListItemButton)(
+    ({ colors, isActive }) => ({
+      backgroundColor: isActive ? colors.redAccent[200] : "transparent",
+      color: isActive ? colors.grey[500] : "grey",
+      "& .MuiListItemIcon-root": {
+        color: isActive ? colors.redAccent["hover"] : "inherit",
+      },
+    })
+  );
 
   const drawer = (
-    <div className=""
-      style={{
-        backgroundColor: `${colors.primary["bg"]}`,
-        height: "100vh", // Full viewport height
-        overflow: "hidden", // Hide overflow outside the sidebar
-    
-      }}
-    >
+    <div
+      className="" style={{backgroundColor: `${colors.primary["bg"]}`, height: "100vh", overflow: "hidden",}}>
       <Toolbar
         sx={{
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
         }}
-        style={{paddingLeft:'10px'}}
+        style={{ paddingLeft: "10px" }}
       >
-        <img src={colorScheme === 'green' ? greenLogo : colorScheme === 'red' ? redLogo : colorScheme === 'yellow' ? yellowLogo : blueLogo} width={!collapsedDrawerWidth ? "50px" : "35px" }  alt="logo"/>
+        <img
+          src={
+            colorScheme === "green"
+              ? greenLogo
+              : colorScheme === "red"
+              ? redLogo
+              : colorScheme === "yellow"
+              ? yellowLogo  
+              : blueLogo
+          }
+          width={!collapsedDrawerWidth ? "50px" : "35px"}
+          alt="logo"
+        />
       </Toolbar>
+      <div className="sidebarScoller" style={{ overflowX: "hidden", maxHeight: "calc(100vh - 64px)" }}>
+        {!isCollapsed && (
+          <h4 style={{ paddingLeft: "15px", margin: "10px 5px 0px 5px" }}>
+            Overview
+          </h4>
+        )}
+        <List>
+          <ListItem
+            key="Dashboard"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("dashboard")}
+              component={NavLink}
+              to="/"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                isActive 
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <SpeedRoundedIcon />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Dashboard" />}
+            </StyledListItemButton>
+          </ListItem>
 
-        {/* <Divider /> */}
-        <div className="sidebarScoller" style={{overflowX:'hidden', maxHeight: 'calc(100vh - 64px)' }}>
-      {!isCollapsed && <h4 style={{paddingLeft:"15px",  margin:"10px 5px 0px 5px"}}>Overview</h4>}
-      <List>
-        <ListItem  key="Dashboard" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon >
-          <SpeedIcon />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Dashboard" />}
-      </StyledListItemButton>
-        </ListItem>
+          <ListItem
+            key="DistrictWise Summary"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("districtWiseSummary")}
+              component={NavLink}
+              to="/districtWiseSummary"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <SummarizeOutlinedIcon />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="DistrictWise Summary" />}
+            </StyledListItemButton>
+          </ListItem>
 
-        <ListItem key="DistrictWise Summary" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/districtWiseSummary"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon >
-          <SummarizeOutlinedIcon />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="DistrictWise Summary" />}
-      </StyledListItemButton>
-        </ListItem>
+          <ListItem
+            key="E-commerce"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("eCommerce")}
+              component={NavLink}
+              to="/ecommerce"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <ShoppingCartIcon />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="E-commerce" />}
+            </StyledListItemButton>
+          </ListItem>
+          <ListItem
+            key="Analytics"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("analytics")}
+              component={NavLink}
+              to="/analytics"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <AnalyticsIcon style={{ color: "inherit" }} />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Analytics" />}
+            </StyledListItemButton>
+          </ListItem>
+          <ListItem
+            key="Banking"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("banking")}
+              component={NavLink}
+              to="/banking"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <AccountBalanceIcon style={{ color: "inherit" }} />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Banking" />}
+            </StyledListItemButton>
+          </ListItem>
+          <ListItem
+            key="Hotels"
+            disablePadding
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: !isCollapsed ? "0 5px" : "7px 5px",
+            }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("Hotels")} // Toggle the submenu on click
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={{
+                backgroundColor:
+                  openMenu === "Hotels"
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  openMenu === "Hotels"
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+                width: "100%",
+              }}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <HotelRounded style={{ color: "inherit" }} />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Hotels" />}
+              {openMenu === "Hotels"
+                ? !isCollapsed && <ExpandMore />
+                : !isCollapsed && <ChevronRight />}
+            </StyledListItemButton>
 
+            {/* Collapsible Submenu */}
+            <Collapse
+              style={{ width: "100%" }}
+              in={openMenu === "Hotels"}
+              timeout="auto"
+              unmountOnExit
+            >
+              <Box sx={{ display: "flex", width: "100%" }}>
+                {!isCollapsed && (
+                  <Box
+                    sx={{
+                      backgroundColor: colors.grey[900],
+                      borderRadius: "20px",
+                      width: "2.5px",
+                      height: "auto",
+                      margin: "0px 0px 10px 23px",
+                    }}
+                  >
+                    <p style={{ visibility: "hidden", margin: "0" }}>p</p>
+                  </Box>
+                )}
 
-        <ListItem key="E-commerce" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/ecommerce"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon>
-          <ShoppingCartIcon  />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="E-commerce" />}
-      </StyledListItemButton>
-        </ListItem>
-        <ListItem key="Analytics" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/analytics"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon>
-          <AnalyticsIcon  style={{ color: 'inherit' }} />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Analytics" />}
-      </StyledListItemButton>
-        </ListItem>
-        <ListItem key="Banking" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/banking"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon>
-          <AccountBalanceIcon  style={{ color: 'inherit' }} />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Banking" />}
-      </StyledListItemButton>
-        </ListItem>
+                <List style={{ width: "100%" }} component="div" disablePadding>
+                  <ListItem
+                    className={!isCollapsed && "listItem"}
+                    disablePadding
+                  >
+                    <StyledListItemButton
+                      component={NavLink}
+                      to="/hotels/list"
+                      className={
+                        theme.palette.mode === "dark"
+                          ? "listItemDark"
+                          : "listItemLight"
+                      }
+                      style={({ isActive }) => ({
+                        backgroundColor: isActive
+                          ? colors.primary["hover"]
+                          : "transparent",
+                        color: isActive ? colors.grey[100] : colors.grey[500],
+                        borderRadius: "10px",
+                        marginBottom: "3px",
+                        width: "100%",
+                      })}
+                    >
+                      <ListItemIcon sx={{ minWidth: "35px" }}>
+                        <ListAlt style={{ color: "inherit" }} />
+                      </ListItemIcon>
+                      {!isCollapsed && <ListItemText primary="List" />}
+                    </StyledListItemButton>
+                  </ListItem>
 
-        <ListItem key="Hotels" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/hotels"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon>
-          <HotelRounded  style={{ color: 'inherit' }} />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Hotels" />}
-      </StyledListItemButton>
-        </ListItem>
+                  <ListItem
+                    className={!isCollapsed && "listItem"}
+                    disablePadding
+                  >
+                    <StyledListItemButton
+                      component={NavLink}
+                      to="/hotels/details"
+                      className={
+                        theme.palette.mode === "dark"
+                          ? "listItemDark"
+                          : "listItemLight"
+                      }
+                      style={({ isActive }) => ({
+                        backgroundColor: isActive
+                          ? colors.primary["hover"]
+                          : "transparent",
+                        color: isActive ? colors.grey[100] : colors.grey[500],
+                        borderRadius: "10px",
+                        marginBottom: "3px",
+                        width: "100%",
+                      })}
+                    >
+                      <ListItemIcon sx={{ minWidth: "35px" }}>
+                        <Info style={{ color: "inherit" }} />
+                      </ListItemIcon>
+                      {!isCollapsed && <ListItemText primary="Details" />}
+                    </StyledListItemButton>
+                  </ListItem>
 
-        <ListItem key="Hotels" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/teams"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-      })}
-      >
-        <ListItemIcon>
-          <GroupsIcon  style={{ color: 'inherit' }} />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Teams" />}
-      </StyledListItemButton>
-        </ListItem>
-      </List>
-      {!isCollapsed && <h4 style={{paddingLeft:"15px" , margin:"10px 5px 0px 5px"}}>Forms</h4>}
-      <List>
-        <ListItem key="ARR" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/arr"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon>
-          <SummarizeOutlinedIcon />
-        </ListItemIcon>
-       {!isCollapsed && <ListItemText  primary="Aggregate Revenue Requirement" />}  
-      </StyledListItemButton>
-        </ListItem>
-        <ListItem key="AD" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/ad"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon>
-          <FeedOutlinedIcon  />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Assets & Depreciation" />}
-      </StyledListItemButton>
-        </ListItem>
-        <ListItem key="inputUpload" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/inputUpload"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-      })}
-      >
-        <ListItemIcon>
-          <CloudUploadOutlinedIcon  style={{ color: 'inherit' }} />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Input data upload" />}
-      </StyledListItemButton>
-        </ListItem>
-       
-      </List>
+                  <ListItem
+                    className={!isCollapsed && "listItem"}
+                    disablePadding
+                  >
+                    <StyledListItemButton
+                      component={NavLink}
+                      to="/hotels/create"
+                      className={
+                        theme.palette.mode === "dark"
+                          ? "listItemDark"
+                          : "listItemLight"
+                      }
+                      style={({ isActive }) => ({
+                        backgroundColor: isActive
+                          ? colors.primary["hover"]
+                          : "transparent",
+                        color: isActive ? colors.grey[100] : colors.grey[500],
+                        borderRadius: "10px",
+                        width: "100%",
+                      })}
+                    >
+                      <ListItemIcon sx={{ minWidth: "35px" }}>
+                        <AddCircle style={{ color: "inherit" }} />
+                      </ListItemIcon>
+                      {!isCollapsed && <ListItemText primary="Create" />}
+                    </StyledListItemButton>
+                  </ListItem>
+                </List>
+              </Box>
+            </Collapse>
+          </ListItem>
 
-      {!isCollapsed && <h4 style={{paddingLeft:"15px", margin:"10px 5px 0px 5px"}}>Management</h4>}
-      <List>
-        <ListItem key="User" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
+          <ListItem
+            key="teams"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("teams")}
+              component={NavLink}
+              to="/teams"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <GroupsIcon style={{ color: "inherit" }} />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Teams" />}
+            </StyledListItemButton>
+          </ListItem>
+        </List>
+        {!isCollapsed && (
+          <h4 style={{ paddingLeft: "15px", margin: "10px 5px 0px 5px" }}>
+            Forms
+          </h4>
+        )}
+        <List>
+          <ListItem
+            key="ARR"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("arr")}
+              component={NavLink}
+              to="/arr"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <SummarizeOutlinedIcon />
+              </ListItemIcon>
+              {!isCollapsed && (
+                <ListItemText primary="Aggregate Revenue Requirement" />
+              )}
+            </StyledListItemButton>
+          </ListItem>
+          <ListItem
+            key="AD"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("ad")}
+              component={NavLink}
+              to="/ad"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <FeedOutlinedIcon />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Assets & Depreciation" />}
+            </StyledListItemButton>
+          </ListItem>
+          <ListItem
+            key="inputUpload"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("inputUpload")}
+              component={NavLink}
+              to="/inputUpload"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <CloudUploadOutlinedIcon style={{ color: "inherit" }} />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Input data upload" />}
+            </StyledListItemButton>
+          </ListItem>
+        </List>
+
+        {!isCollapsed && (
+          <h4 style={{ paddingLeft: "15px", margin: "10px 5px 0px 5px" }}>
+            Management
+          </h4>
+        )}
+        <List>
+          {/* <ListItem key="User" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
         <StyledListItemButton
         component={NavLink}
         to="/users"
         end
-        className="listMenu"
+        className={
+          theme.palette.mode === 'dark'
+            ? 'listItemDark'
+            : 'listItemLight'
+        } 
         style={({ isActive }) => ({
           backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
           color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
@@ -356,72 +631,112 @@ function ResponsiveDrawer(props) {
           marginBottom:'3px'
       })}
       >
-        <ListItemIcon>
+        <ListItemIcon sx={{minWidth:'35px'}}>
           <AccountCircleIcon  style={{ color: 'inherit' }} />
         </ListItemIcon>
         {!isCollapsed && <ListItemText primary="User" />}
        </StyledListItemButton>
-        </ListItem>
-        <ListItem key="Product" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/products"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon>
-          <DryCleaningIcon style={{ color: 'inherit' }} />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Product" />}
-       </StyledListItemButton>
-        </ListItem>
-        <ListItem key="Order" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/orders"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon>
-          <ShoppingBagIcon  style={{ color: 'inherit' }} />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Order" />}
-      </StyledListItemButton>
-        </ListItem>
-        <ListItem key="Mail" disablePadding style={{padding: !isCollapsed ? "0 5px": "7px 5px"}}>
-        <StyledListItemButton
-        component={NavLink}
-        to="/mail"
-        end
-        className="listMenu"
-        style={({ isActive }) => ({
-          backgroundColor: isActive ? colors[`${colorScheme}Accent`]?.['hover'] : 'transparent',
-          color: isActive ? colors[`${colorScheme}Accent`]?.[500] : colors.grey[500],
-          borderRadius:"10px",
-          marginBottom:'3px'
-      })}
-      >
-        <ListItemIcon>
-          <MailIcon  style={{ color: 'inherit' }} />
-        </ListItemIcon>
-        {!isCollapsed && <ListItemText primary="Mail" />}
-      </StyledListItemButton>
-        </ListItem>
-      </List>
-        </div>
-      <Divider />  
+        </ListItem> */}
+
+          <ListItem
+            key="Product"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("product")}
+              component={NavLink}
+              to="/products"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <DryCleaningIcon style={{ color: "inherit" }} />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Product" />}
+            </StyledListItemButton>
+          </ListItem>
+          <ListItem
+            key="Order"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("order")}
+              component={NavLink}
+              to="/orders"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <ShoppingBagIcon style={{ color: "inherit" }} />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Order" />}
+            </StyledListItemButton>
+          </ListItem>
+          <ListItem
+            key="Mail"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("mail")}
+              component={NavLink}
+              to="/mail"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <MailIcon style={{ color: "inherit" }} />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Mail" />}
+            </StyledListItemButton>
+          </ListItem>
+        </List>
+      </div>
+      <Divider />
     </div>
   );
 
@@ -430,14 +745,14 @@ function ResponsiveDrawer(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", width:"100%", height:"100%" }}>
+    <Box sx={{ display: "flex", width: "100%", height: "100%" }}>
       <CssBaseline />
       <AppBar
         position="fixed"
         sx={{
           backgroundImage: "none",
           boxShadow: "none",
-          borderBottom: `1px solid ${colors.primary['accent']}`,
+          borderBottom: `1px solid ${colors.primary["accent"]}`,
           backgroundColor: `${
             theme.palette.mode === "dark"
               ? "#141a2172"
@@ -446,7 +761,7 @@ function ResponsiveDrawer(props) {
           backdropFilter: "blur(5px)",
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          zIndex:'1200'
+          zIndex: "1200",
         }}
       >
         {/* <Toolbar>
@@ -463,12 +778,17 @@ function ResponsiveDrawer(props) {
             padding: "10px",
           }}
         >
-          <Box display="flex" alignItems="center" sx={{position:'relative'}} borderRadius="3px">
+          <Box
+            display="flex"
+            alignItems="center"
+            sx={{ position: "relative" }}
+            borderRadius="3px"
+          >
             <IconButton
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" }}}
+              sx={{ mr: 2, display: { sm: "none" } }}
             >
               <MenuIcon />
             </IconButton>
@@ -476,28 +796,53 @@ function ResponsiveDrawer(props) {
               aria-label="open drawer"
               edge="start"
               onClick={handleMenuClosing}
-              sx={{ mr: 2,  display: { xs: "none", sm: "flex" },"&:hover": { backgroundColor: 'transparent' }, position:'absolute', left:'-30px', zIndex:1300}}
-              >
+              sx={{
+                mr: 2,
+                display: { xs: "none", sm: "flex" },
+                "&:hover": { backgroundColor: "transparent" },
+                position: "absolute",
+                left: "-30px",
+                zIndex: 1300,
+              }}
+            >
               {/* <MenuIcon /> */}
               {/* KeyboardArrowRightRoundedIcon */}
               {/* import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'; */}
-              
-              {!isCollapsed  ? <ChevronLeft className="menuIcons" style={{border:`1px solid ${colors.primary['accent']}`, backgroundColor:colors.primary['bg'],  borderRadius:'50%'}}/> :  <ChevronRight className="menuIcons" style={{border:`1px solid ${colors.primary['accent']}`,backgroundColor:colors.primary['bg'],  borderRadius:'50%'}}/>} 
+
+              {!isCollapsed ? (
+                <ChevronLeft
+                  className="menuIcons"
+                  style={{
+                    border: `1px solid ${colors.primary["accent"]}`,
+                    backgroundColor: colors.primary["bg"],
+                    borderRadius: "50%",
+                  }}
+                />
+              ) : (
+                <ChevronRight
+                  className="menuIcons"
+                  style={{
+                    border: `1px solid ${colors.primary["accent"]}`,
+                    backgroundColor: colors.primary["bg"],
+                    borderRadius: "50%",
+                  }}
+                />
+              )}
             </IconButton>
             <IconButton type="button" sx={{ p: 1 }}>
               <SearchIcon />
             </IconButton>
             <Tooltip placement="bottom-start">
               <InputBase
-              className="inputBox"
+                className="inputBox"
                 sx={{ ml: 1, flex: 1 }}
-                style={{ width: "100%"}}
+                style={{ width: "100%" }}
                 placeholder="Search for something..."
               />
             </Tooltip>
             <Tooltip></Tooltip>
           </Box>
-         
+
           <Menu
             anchorEl={anchorEl}
             id="account-menu"
@@ -534,7 +879,7 @@ function ResponsiveDrawer(props) {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             <MenuItem onClick={handleClose}>
-              <ListItemIcon>
+              <ListItemIcon sx={{ minWidth: "35px" }}>
                 <NotificationsOutlinedIcon fontSize="small" />
               </ListItemIcon>
               Notifications
@@ -543,7 +888,10 @@ function ResponsiveDrawer(props) {
               {["right"].map((anchor) => (
                 <React.Fragment key={anchor}>
                   <MenuItem>
-                    <ListItemIcon onClick={toggleDrawer(anchor, true)}>
+                    <ListItemIcon
+                      sx={{ minWidth: "35px" }}
+                      onClick={toggleDrawer(anchor, true)}
+                    >
                       <SettingslinedIcon fontSize="small" />
                     </ListItemIcon>
                     Settings
@@ -558,8 +906,12 @@ function ResponsiveDrawer(props) {
             </Box>
 
             <MenuItem onClick={handleClose}>
-              <ListItemIcon>
-              <Avatar alt="Travis Howard" style={{width:"30px", height:"30px"}} src={profilepic} />
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <Avatar
+                  alt="Travis Howard"
+                  style={{ width: "30px", height: "30px", filter: '' }}
+                  src={profilepic}
+                />
                 {/* <PersonOutlinedIcon fontSize="small" /> */}
               </ListItemIcon>
               Profile
@@ -567,12 +919,17 @@ function ResponsiveDrawer(props) {
           </Menu>
           {/* Icons */}
           <Box display="flex" sx={{ display: { xs: "none", sm: "flex" } }}>
+            <IconButton onClick={() => navigate("/Home")}>
+              <Tooltip title="Notification" placement="top-end">
+                <HomeRoundedIcon />
+              </Tooltip>
+            </IconButton>
             <IconButton>
               <Tooltip title="Notification" placement="top-end">
                 <NotificationsOutlinedIcon />
               </Tooltip>
             </IconButton>
-            <Box style={{display:"flex", alignItems:"center"}}>
+            <Box style={{ display: "flex", alignItems: "center" }}>
               {["right"].map((anchor) => (
                 <React.Fragment key={anchor}>
                   <Tooltip title="Settings" placement="top-end">
@@ -593,9 +950,11 @@ function ResponsiveDrawer(props) {
             </Box>
             <IconButton>
               <Tooltip title="Profile" placement="top-end">
-                {/* <PersonOutlinedIcon /> */}
-                <Avatar style={{width:"31px", height:"31px"}} alt="Travis Howard" src={profilepic} />
-               
+                <Avatar
+                  style={{ width: "31px", height: "31px" }}
+                  alt="Travis Howard"
+                  src={profilepic}
+                />
               </Tooltip>
             </IconButton>
           </Box>
@@ -615,11 +974,13 @@ function ResponsiveDrawer(props) {
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { sm: drawerWidth },            zIndex:'1000',
-        flexShrink: { sm: 0 } }}
+        sx={{
+          width: { sm: drawerWidth },
+          zIndex: "1000",
+          flexShrink: { sm: 0 },
+        }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <StyledDrawer
           container={container}
           variant="temporary"
@@ -627,18 +988,15 @@ function ResponsiveDrawer(props) {
           onTransitionEnd={handleDrawerTransitionEnd}
           onClose={handleDrawerClose}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
-          
           sx={{
-            
             display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
             },
           }}
-          
         >
           {drawer}
         </StyledDrawer>
@@ -654,6 +1012,7 @@ function ResponsiveDrawer(props) {
               boxSizing: "border-box",
               width: drawerWidth,
               transition: state === "entered" ? "width 0.3s" : "none",
+              height: "100vh",
             },
           }}
           open
@@ -671,21 +1030,8 @@ function ResponsiveDrawer(props) {
           height: "max-content",
         }}
       >
-        <Toolbar sx={{minHeight:"50px !important"}} className="yoo" />
-        {/* <Routes>
-            <Route path="/login" element={<Login /> } />
-            <Route path="/register" element={<Register />} />
-
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/ecommerce" element={<Ecommerce />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="/banking" element={<Banking />} />
-            <Route path="/arr" element={<FullFeaturedCrudGrid />} />
-            <Route path="/ad" element={<AssestsDepreciation />} />
-            <Route path="/inputUpload" element={<InputUpload />} />
-            <Route path="/mail" element={<Mail />} />
-          </Routes> */}
-          <Outlet />
+        <Toolbar sx={{ minHeight: "50px !important" }} className="yoo" />
+        <Outlet />
       </Box>
     </Box>
   );

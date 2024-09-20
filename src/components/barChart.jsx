@@ -1,23 +1,22 @@
-import { colors } from '@mui/material';
 import React from 'react';
 import ApexCharts from 'react-apexcharts';
 
-const MonthlyInflationChart = ({graphColor}) => {
+const MonthlyInflationChart = ({graphColor, dataValues, height, width}) => {
  
     var options = {
         series: [{
-        data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200, 1380]
+        data: dataValues
       }],
         chart: {
         type: 'bar',
-        height: 350,
+        height: 300,
         toolbar: {
             show: false // Disable the toolbar
           }
       },
       plotOptions: {
         bar: {
-          borderRadius: 4,
+          borderRadius: 3,
           borderRadiusApplication: 'end',
           horizontal: false,
         }
@@ -64,7 +63,7 @@ const MonthlyInflationChart = ({graphColor}) => {
         y: {
           show: false,
           formatter: function (val) {
-            return val + "%";
+            return val;
           },
         },
         marker: {
@@ -78,12 +77,12 @@ const MonthlyInflationChart = ({graphColor}) => {
           position: 'topRight', // topRight, topLeft, bottomRight, bottomLeft
           offsetX: 0,
           offsetY: 0,
-        }
+        } 
        },
       };
   return (
     <div id="chart" >
-      <ApexCharts options={options} series={options.series} type="bar" height="150px" width="150px"/>
+      <ApexCharts options={options} series={options.series} type="bar" height={height} width={width}/>
     </div>
   );
 };

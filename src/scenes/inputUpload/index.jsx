@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Header from '../../components/Header';
 import { Box, Button, Divider, Grid, List, ListItem, ListItemText, Modal, useTheme } from '@mui/material';
 import { colorModeContext, tokens } from '../../theme';
 import './style.css';
@@ -164,14 +163,16 @@ const InputUpload = () => {
             }
           </List>
           <List>
-          <ListItemText sx={{color: colors[`${colorScheme}Accent`]?.[500], backgroundColor:colors[`${colorScheme}Accent`]?.["hover"], padding:"5px 8px",borderRadius:"10px", width:"max-content"}}>Files from database</ListItemText>
+          <ListItemText sx={{color: colors[`${colorScheme}Accent`]?.[100], backgroundColor:colors[`${colorScheme}Accent`]?.["hover"], padding:"5px 8px",borderRadius:"10px", width:"max-content"}}>Files from database</ListItemText>
 
             {uploadedFiles.length > 0 ?
               uploadedFiles.map((upfile, index) => (
                 <ListItem key={index} style={{ width: "100%", display: "flex", justifyContent: "space-between", gap: "20px" }}>
                   <Box className="flex">
-                    <span>{index + 1} ) </span>
+                    <span style={{color:colors.grey[100]}}
+                    >{index + 1} ) </span>
                     <ListItemText
+                     sx={{color:colors.grey[100]}}
                       primary={upfile.originalName}
                     />
                   </Box>

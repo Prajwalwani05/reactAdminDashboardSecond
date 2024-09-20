@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Divider, InputBase, styled, Typography, useTheme } from '@mui/material';
+import { Button, InputBase, styled, Typography, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
@@ -22,7 +22,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import DonutChart from '../../components/smallDonutChart';
 import dayjs from 'dayjs';
-import { Url } from 'devextreme-react/cjs/chart';
 import MediaCard from './hotelCard';
 import { HotelRounded } from "@mui/icons-material";
 

@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 

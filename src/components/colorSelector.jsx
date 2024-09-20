@@ -49,7 +49,7 @@ const ColorSelector = () => {
             <SpaceDashboardRoundedIcon
               style={{
                 // color:colors[`${colorMode.colorScheme}Accent`]?.[200],
-                color: color === 'red' ? colors.redAccent["500"] : color === 'yellow' ? colors.yellowAccent["500"] : color === 'green' ? colors.greenAccent["500"] :  colors.blueAccent["500"],
+                color: color === 'red' ? colors.redAccent["500"] : color === 'yellow' ? colors.yellowAccent["500"] : color === 'green' ? colors.greenAccent["500"]  : colors.blueAccent["500"],
               }}
             />
           </Grid>

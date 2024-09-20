@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Header from '../../components/Header'
 import { Box, Grid, useTheme } from '@mui/material'
 import AlignItemsList from './mailerList'
 import { tokens } from '../../theme'
