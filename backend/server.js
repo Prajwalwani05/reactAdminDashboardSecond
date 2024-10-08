@@ -1,3 +1,4 @@
+require('dotenv').config();
 // server.js
 const express = require('express');
 const mongoose = require('mongoose');
@@ -5,22 +6,29 @@ const multer = require('multer');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs'); // Import fs module
-
+const { default: axios } = require('axios');
 const app = express();
-const port = 5000;
+const port = 5500;
 
 // Middleware
 app.use(cors({
-    origin: '*', // Allow all origins for testing
+    origin: '*',
     methods: ['GET', 'POST'],
     allowedHeaders: ['Content-Type']
-  }));
-  app.use(express.json());
-  app.use('/uploads', express.static('uploads'));
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/adminDashboard', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB', err));
+}));
+app.use(express.json());
+app.use('/uploads', express.static('uploads'));
+// const DB_USER = process.env.DB_USER;
+// const DB_PASSWORD = process.env.DB_PASSWORD;
+// const DB_NAME = process.env.DB_NAME;
+
+// MongoDB connection                  
+mongoose.connect(`mongodb://localhost:27017/adminDashboard`, { 
+    useNewUrlParser: true, 
+    useUnifiedTopology: true 
+})
+.then(() => console.log('Connected to MongoDB Atlas'))
+.catch(err => console.error('Could not connect to MongoDB Atlas', err));
 
 // Schema and Model
 const traderSchema = new mongoose.Schema({
@@ -36,6 +44,30 @@ const traderSchema = new mongoose.Schema({
     mimetype: String,
     size: Number,
   });
+
+// Define the schema for the Blog
+const blogSchema = new mongoose.Schema({
+  blogTitle: {
+    type: String,
+    required: true,
+  },
+  blogContent: {
+    type: Array, // You can also define a specific structure for this if needed
+    required: true,
+  },
+  author: {
+    type: String,
+    required: true,
+  },
+  coverImageUrl: {
+    type: String,
+    required: true,
+  },
+}, { timestamps: true }); // This will add createdAt and updatedAt fields
+
+// Create the Blog model
+const Blog = mongoose.model('Blog', blogSchema, 'Blogs');
+
 
 const File = mongoose.model('File', fileSchema, 'Files');
 const Trader = mongoose.model('Trader', traderSchema, 'Trader'); // Explicitly name the collection
@@ -121,8 +153,6 @@ app.post('/traders', async (req, res) => {
       res.status(400).json({ message: 'Error adding trader', error });
     }
   });
-  
-  
 
 // PUT endpoint to update an existing trader
 app.put('/traders/:id', async (req, res) => {
@@ -160,6 +190,32 @@ app.get('/traders', async (req, res) => {
   }
 });
 
+// POST endpoint to save blogs
+app.post('/blogs', async (req, res) => {
+  // const blogs = req.body; // Expecting an array of blogs
+  const newBlog = new Blog(req.body);
+  try {
+    const savedBlogs = await newBlog.save(); // Assuming Blog is your Mongoose model
+    res.status(201).json(savedBlogs);
+  } catch (error) {
+    console.error('Error saving blogs:', error);
+    res.status(400).json({ message: 'Error saving blogs', error });
+  }
+});
+
+// Example Express route for fetching blogs
+app.get('/blogs', async (req, res) => {
+  try {
+    const blogs = await Blog.find(); // Assuming you have a Blog model
+    res.status(200).json(blogs);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+ 

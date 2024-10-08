@@ -38,6 +38,7 @@ import List from './scenes/hotels/List';
 import Details from './scenes/hotels/Details';
 import Create from './scenes/hotels/Create';
 import DistrictDetails from './scenes/substationData/districtDetails';
+import StrapiBlogs from './scenes/strapiBlogs';
 
 const App = () => {
   const [theme, colorMode] = useMode();
@@ -72,6 +73,9 @@ const App = () => {
               <Route path="/users" element={<Users />} />
               <Route path="/products" element={<Products />} />
               <Route path="/orders" element={<Orders />} />
+
+              <Route path="/blogs" element={<StrapiBlogs />} />
+              
               </Route>
             </Routes>
         </div>

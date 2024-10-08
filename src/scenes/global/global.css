@@ -50,7 +50,7 @@
 }
 .listItem::before{
   content: "";
-  background-color: gray;
+  background-color: #535C66;
   width: 15px;
   height: 1.5px;
   border-radius: 0 20px 20px 0;

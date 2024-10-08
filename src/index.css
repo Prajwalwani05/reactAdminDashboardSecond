@@ -49,3 +49,8 @@ svg{
   align-items: center;
   gap: 10px;
 }
+
+.inputHello{
+  background-color: aqua;
+  pointer-events: none;
+}

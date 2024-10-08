@@ -35,6 +35,8 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import FeedOutlinedIcon from "@mui/icons-material/FeedOutlined";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
+import ImageIcon from '@mui/icons-material/Image';
+
 import {
   AddCircle,
   ChevronLeft,
@@ -191,6 +193,40 @@ function ResponsiveDrawer(props) {
               {!isCollapsed && <ListItemText primary="Dashboard" />}
             </StyledListItemButton>
           </ListItem>
+
+          <ListItem
+            key="Blogs"
+            disablePadding
+            style={{ padding: !isCollapsed ? "0 5px" : "7px 5px" }}
+          >
+            <StyledListItemButton
+              onClick={() => handleMenuClick("blogs")}
+              component={NavLink}
+              to="/blogs"
+              end
+              className={
+                theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"
+              }
+              style={({ isActive }) => ({
+                backgroundColor:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.["hover"]
+                    : "transparent",
+                color:
+                  isActive
+                    ? colors[`${colorScheme}Accent`]?.[500]
+                    : colors.grey[500],
+                borderRadius: "10px",
+                marginBottom: "3px",
+              })}
+            >
+              <ListItemIcon sx={{ minWidth: "35px" }}>
+                <ImageIcon />
+              </ListItemIcon>
+              {!isCollapsed && <ListItemText primary="Blogs" />}
+            </StyledListItemButton>
+          </ListItem>
+
 
           <ListItem
             key="DistrictWise Summary"
@@ -370,13 +406,13 @@ function ResponsiveDrawer(props) {
                   <Box
                     sx={{
                       backgroundColor: colors.grey[900],
-                      borderRadius: "20px",
+                      borderRadius: "20px 20px 0px 0",
                       width: "2.5px",
-                      height: "auto",
+                      height: "112.5px",
                       margin: "0px 0px 10px 23px",
                     }}
                   >
-                    <p style={{ visibility: "hidden", margin: "0" }}>p</p>
+                    {/* <p style={{ visibility: "hidden", margin: "0" }}>p</p> */}
                   </Box>
                 )}
 
@@ -399,7 +435,6 @@ function ResponsiveDrawer(props) {
                           : "transparent",
                         color: isActive ? colors.grey[100] : colors.grey[500],
                         borderRadius: "10px",
-                        marginBottom: "3px",
                         width: "100%",
                       })}
                     >
@@ -428,7 +463,6 @@ function ResponsiveDrawer(props) {
                           : "transparent",
                         color: isActive ? colors.grey[100] : colors.grey[500],
                         borderRadius: "10px",
-                        marginBottom: "3px",
                         width: "100%",
                       })}
                     >
@@ -518,6 +552,7 @@ function ResponsiveDrawer(props) {
               onClick={() => handleMenuClick("arr")}
               component={NavLink}
               to="/arr"
+              
               end
               className={
                 theme.palette.mode === "dark" ? "listItemDark" : "listItemLight"

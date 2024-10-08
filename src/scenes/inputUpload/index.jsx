@@ -19,12 +19,13 @@ const InputUpload = () => {
   const {colorScheme} = useContext(colorModeContext)
   const [open, setOpen] = React.useState(false);
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     // Fetch files from server when the component mounts
     const fetchFiles = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/files');
+        const response = await axios.get(`${apiUrl}/files`);
         setUploadedFiles(response.data);
         console.log(response.data)
       } catch (error) {
@@ -62,10 +63,10 @@ const InputUpload = () => {
 
     try {
       // Delete file from server
-      await axios.delete(`http://localhost:5000/files/${filename}`);
+      await axios.delete(`${apiUrl}/files/${filename}`);
 
       // Re-fetch files from server
-      const response = await axios.get('http://localhost:5000/files');
+      const response = await axios.get(`${apiUrl}/files`);
       setUploadedFiles(response.data);
     } catch (error) {
       console.error('Error deleting file:', error);
@@ -78,14 +79,14 @@ const InputUpload = () => {
     formData.append('file', files[index]);
 
     try {
-      await axios.post('http://localhost:5000/upload', formData, {
+      await axios.post(`${apiUrl}/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
       alert('File uploaded successfully');
       // Re-fetch files after uploading
-      const response = await axios.get('http://localhost:5000/files');
+      const response = await axios.get(`${apiUrl}/files`);
       setUploadedFiles(response.data);
     } catch (error) {
       console.error('Error uploading file:', error);

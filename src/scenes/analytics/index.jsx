@@ -7,7 +7,7 @@ import AnalyticsIcon from "@mui/icons-material/Analytics";
 
 const Analytics = () => {
   const [traders, setTraders] = useState([]);
-
+const apiUrl = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchData = async () => {
       try {

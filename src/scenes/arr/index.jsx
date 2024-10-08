@@ -8,17 +8,11 @@ import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
 import Alert from '@mui/material/Alert';
 import SummarizeOutlinedIcon from '@mui/icons-material/SummarizeOutlined';
-import {
-  GridRowModes,
-  DataGrid,
-  GridToolbarContainer,
-  GridActionsCellItem,
-  GridRowEditStopReasons,
-} from '@mui/x-data-grid';
+import { GridRowModes, DataGrid, GridToolbarContainer, GridActionsCellItem, GridRowEditStopReasons,} from '@mui/x-data-grid';
 import { Grid, Snackbar, useTheme } from '@mui/material';
 import { colorModeContext, tokens } from '../../theme';
 import SelectVariants from './dropdown';
-import axios from 'axios'; // Import axios for fetching data
+import axios from 'axios';
 import CustomSeparator from '../../components/Header';
 
 const EditToolbar = (props) => {
@@ -37,11 +31,10 @@ const EditToolbar = (props) => {
       ...oldModel,
       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
     }));
-  };
+   };
   
 
-  
-
+   
   return (
     <GridToolbarContainer>
       <Button style={{ color: colors[`${colorScheme}Accent`]?.[200], fontWeight: "700" }} startIcon={<AddIcon />} onClick={handleClick}>
@@ -57,11 +50,12 @@ export default function FullFeaturedCrudGrid() {
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [saveAlertOpen, setSaveAlertOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(true); // Loading state
-
+  const apiUrl = process.env.REACT_APP_API_URL;
+  // const apiUrl = 'http://localhost:5500'
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/traders'); // Fetch data from backend
+        const response = await axios.get(`${apiUrl}/traders`); // Fetch data from backend
         const mappedData = response.data.map((row) => ({
           ...row,
           id: row._id || Math.random().toString(36).substr(2, 9), // Ensure unique ID
@@ -101,13 +95,13 @@ export default function FullFeaturedCrudGrid() {
     try {
       if (updatedRow.isNew) {
         // Save new record
-        await axios.post('http://localhost:5000/traders', updatedRow);
+        await axios.post(`${apiUrl}/traders`, updatedRow);
         setRows((prevRows) => prevRows.map((row) =>
           row.id === id ? { ...updatedRow, isNew: false } : row
         ));
       } else {
         // Update existing record
-        await axios.put(`http://localhost:5000/traders/${id}`, updatedRow);
+        await axios.put(`${apiUrl}/traders/${id}`, updatedRow);
         setRows((prevRows) => prevRows.map((row) =>
           row.id === id ? updatedRow : row
         ));
