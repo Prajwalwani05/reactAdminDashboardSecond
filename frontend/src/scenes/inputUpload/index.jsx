@@ -9,6 +9,7 @@ import axios from 'axios';
 import ApexChart from './chart';
 import CustomSeparator from '../../components/Header';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
+import Loader from '../../components/loader';
 
 
 const InputUpload = () => {
@@ -18,17 +19,19 @@ const InputUpload = () => {
   const colors = tokens(theme.palette.mode);
   const {colorScheme} = useContext(colorModeContext)
   const [open, setOpen] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
   const [selectedFileIndex, setSelectedFileIndex] = useState(null);
   const apiUrl = process.env.REACT_APP_API_URL;
-
   useEffect(() => {
     // Fetch files from server when the component mounts
     const fetchFiles = async () => {
       try {
         const response = await axios.get(`${apiUrl}/files`);
         setUploadedFiles(response.data);
+        setLoading(false);
         console.log(response.data)
       } catch (error) {
+        setLoading(false);
         console.error('Error fetching files:', error);
       }
     };
@@ -163,6 +166,8 @@ const InputUpload = () => {
               <ListItemText primary="" />
             }
           </List>
+          {
+            loading ? <Loader /> : 
           <List>
           <ListItemText sx={{color: colors[`${colorScheme}Accent`]?.[100], backgroundColor:colors[`${colorScheme}Accent`]?.["hover"], padding:"5px 8px",borderRadius:"10px", width:"max-content"}}>Files from database</ListItemText>
 
@@ -188,6 +193,7 @@ const InputUpload = () => {
               <ListItemText primary="No files in database" />
             }
           </List>
+          }
         </Grid>
         <Modal
           open={open}

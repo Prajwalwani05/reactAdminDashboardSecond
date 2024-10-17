@@ -14,7 +14,6 @@ import Loader from "../../components/loader";
 import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 import MonthlyInflationChart from "../../components/barChart";
 import { colorModeContext, tokens } from "../../theme";
-import PieChart from "../../components/pieChart";
 
 const SubstationData = () => {
   const [data, setData] = useState([]);
